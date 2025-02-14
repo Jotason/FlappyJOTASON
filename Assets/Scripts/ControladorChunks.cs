@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ControladorChunks : MonoBehaviour
 {
-    [SerializeField]List<Transform> chunks = new List<Transform>();
+    [SerializeField]List<Chunk> chunks = new List<Chunk>();
     [SerializeField]float velocidad = 0f;
     [SerializeField] Transform ultimoChunk;
 
@@ -19,12 +19,12 @@ public class ControladorChunks : MonoBehaviour
     {
         for (int i = 0; i < chunks.Count; i++)
         {
-            chunks[i].Translate(Vector3.left * velocidad *Time.deltaTime, Space.World);
-            if (chunks[i].position.x <= -7)
+            chunks[i].transform.Translate(Vector3.left * velocidad *Time.deltaTime, Space.World);
+            if (chunks[i].transform.position.x <= -7)
             {
-                chunks[i].position = ultimoChunk.position + (Vector3.right * 7);
-                ultimoChunk = chunks[i];
-
+                chunks[i].transform.position = ultimoChunk.position + (Vector3.right * 7);
+                ultimoChunk = chunks[i].transform;
+                chunks[i].GenerarObstaculos();
                 //Destroy(chunks[i].gameObject);    
             }
         }
